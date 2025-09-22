@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/common_spacing"
     tools:context=".MainActivity">
 
     <ImageView
@@ -100,13 +101,13 @@
         app:tint="?colorControlNormal" />
 
     <TextView
-        android:id="@+id/likesNumbers"
+        android:id="@+id/likesCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
         app:layout_constraintTop_toBottomOf="@id/barrierAfterContent"
         app:layout_constraintStart_toEndOf="@id/likes"
-        tools:text="@sample/posts.json/data/likesNumbers" />
+        tools:text="@sample/posts.json/data/likesCount" />
 
     <ImageButton
         android:id="@+id/share"
@@ -117,27 +118,27 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/description_post_share"
         app:layout_constraintTop_toBottomOf="@id/barrierAfterContent"
-        app:layout_constraintStart_toEndOf="@id/likesNumbers"
+        app:layout_constraintStart_toEndOf="@id/likesCount"
         app:srcCompat="@drawable/ic_share"
         app:tint="?colorControlNormal" />
 
     <TextView
-        android:id="@+id/shareNumbers"
+        android:id="@+id/shareCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
         app:layout_constraintTop_toBottomOf="@id/barrierAfterContent"
         app:layout_constraintStart_toEndOf="@id/share"
-        tools:text="@sample/posts.json/data/shareNumbers" />
+        tools:text="@sample/posts.json/data/shareCount" />
 
     <TextView
-        android:id="@+id/visibleNumbers"
+        android:id="@+id/visibleCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrierAfterContent"
-        tools:text="@sample/posts.json/data/visibleNumbers" />
+        tools:text="@sample/posts.json/data/visibleCount" />
 
     <ImageView
         android:id="@+id/visibles"
@@ -147,7 +148,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/description_post_views"
         app:layout_constraintTop_toBottomOf="@id/barrierAfterContent"
-        app:layout_constraintEnd_toStartOf="@id/visibleNumbers"
+        app:layout_constraintEnd_toStartOf="@id/visibleCount"
         app:srcCompat="@drawable/ic_visibility"
         app:tint="?colorControlNormal" />
 
