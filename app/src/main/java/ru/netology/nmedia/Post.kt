@@ -11,7 +11,7 @@ class Post (
     val content: String,
     val published: String,
     var likesCount: Int = 189,
-    var sharesCount: Int = 8945,
+    var sharesCount: Int = 8,
     val viewsCount: Int = 619658,
     var likedByMe: Boolean = false
 )

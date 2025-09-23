@@ -2,6 +2,7 @@ package ru.netology.nmedia
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,8 +12,15 @@ import ru.netology.nmedia.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.displayCutout() or WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         val post = Post (
             id = 1,
@@ -39,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     post.likesCount--
                 }
 
-                likesCount.text = post.likesCount.toString()
+                likesCount.text = countFormat(post.likesCount)
 
                 likes.setImageResource(
                     if (post.likedByMe) R.drawable.ic_like_red
@@ -49,9 +57,9 @@ class MainActivity : AppCompatActivity() {
 
             share.setOnClickListener {
                 post.sharesCount++
-                shareCount.text = post.sharesCount.toString()
+                shareCount.text = countFormat(post.sharesCount)
             }
         }
 
-        }
     }
+}
