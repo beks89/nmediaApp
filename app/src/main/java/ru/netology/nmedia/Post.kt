@@ -2,14 +2,16 @@ package ru.netology.nmedia
 
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class Post (
     val id: Long,
     val author: String,
     val content: String,
     val published: String,
-    var likesCount: Int = 1,
-    var sharesCount: Int = 2,
+    var likesCount: Int = 189,
+    var sharesCount: Int = 8945,
     val viewsCount: Int = 619658,
     var likedByMe: Boolean = false
 )
@@ -28,7 +30,7 @@ fun countFormat(likesCount: Int): String {
 
 
 fun roundWithDecimal(number: Double): Double? {
-    val df = DecimalFormat("#.#")
+    val df = DecimalFormat("#.#", DecimalFormatSymbols(Locale.US))
     df.roundingMode = RoundingMode.FLOOR
     return df.format(number).toDouble()
 }

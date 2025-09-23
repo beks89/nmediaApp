@@ -36,8 +36,10 @@ class MainActivity : AppCompatActivity() {
                     post.likesCount++
                 }
                 else {
-                    post.likesCount
+                    post.likesCount--
                 }
+
+                likesCount.text = post.likesCount.toString()
 
                 likes.setImageResource(
                     if (post.likedByMe) R.drawable.ic_like_red
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
             share.setOnClickListener {
                 post.sharesCount++
+                shareCount.text = post.sharesCount.toString()
             }
         }
 
