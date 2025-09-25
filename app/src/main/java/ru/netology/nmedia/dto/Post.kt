@@ -1,4 +1,4 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.dto
 
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -13,7 +13,7 @@ class Post (
     var likesCount: Int = 189,
     var sharesCount: Int = 8,
     val viewsCount: Int = 619658,
-    var likedByMe: Boolean = false
+    val likedByMe: Boolean = false
 )
 
 fun countFormat(likesCount: Int): String {
