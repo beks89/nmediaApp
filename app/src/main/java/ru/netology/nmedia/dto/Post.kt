@@ -5,13 +5,13 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 
-class Post (
+data class Post (
     val id: Long,
     val author: String,
     val content: String,
     val published: String,
-    var likesCount: Int = 189,
-    var sharesCount: Int = 8,
+    val likesCount: Int = 189,
+    val sharesCount: Int = 8,
     val viewsCount: Int = 619658,
     val likedByMe: Boolean = false
 )
