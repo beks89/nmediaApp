@@ -6,4 +6,12 @@
     <string name="description_post_views" translatable="false">Post views</string>
     <string name="description_post_share" translatable="false">Post share</string>
     <string name="description_post_likes" translatable="false">Post likes</string>
+    <string name="description_post_save" translatable="false">Save</string>
+    <string name="menu_remove" translatable="false">Remove</string>
+    <string name="post_text" translatable="false">Post Text</string>
+    <string name="menu_edit" translatable="false">Edit</string>
+    <string name="error_empty_content" translatable="false">Content can\'t be empty</string>
+    <string name="description_post_editing" translatable="false">Edit message</string>
+    <string name="description_post_editIc" translatable="false">Edit icon</string>
+    <string name="description_post_close" translatable="false">Close</string>
 </resources>
