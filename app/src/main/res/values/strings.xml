@@ -14,4 +14,7 @@
     <string name="description_post_editing" translatable="false">Edit message</string>
     <string name="description_post_editIc" translatable="false">Edit icon</string>
     <string name="description_post_close" translatable="false">Close</string>
+    <string name="chooser_share_post" translatable="false">Share post</string>
+    <string name="add_post" translatable="false">Add post</string>
+    <string name="save" translatable="false">Save</string>
 </resources>
