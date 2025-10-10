@@ -17,4 +17,5 @@
     <string name="chooser_share_post" translatable="false">Share post</string>
     <string name="add_post" translatable="false">Add post</string>
     <string name="save" translatable="false">Save</string>
+    <string name="description_video">video</string>
 </resources>

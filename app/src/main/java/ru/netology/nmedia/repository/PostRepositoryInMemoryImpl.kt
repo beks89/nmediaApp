@@ -1,6 +1,9 @@
 package ru.netology.nmedia.repository
 
+import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.util.copy
@@ -17,7 +20,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "23 сентября в 10:12",
             likesCount = 1569,
             likedByMe = false,
-            sharesCount = 998
+            sharesCount = 998,
+            videoUrl = "https://rutube.ru/video/300ce9d60e7f1ae1aad760444e4d3e85/?r=wd"
         ),
         Post(
             id = nextId++,
@@ -26,7 +30,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "22 сентября в 10:14",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = null
         ),
         Post(
             id = nextId++,
@@ -35,7 +40,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "22 сентября в 10:12",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = "https://rutube.ru/video/300ce9d60e7f1ae1aad760444e4d3e85/?r=wd"
         ),
         Post(
             id = nextId++,
@@ -44,7 +50,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "21 сентября в 10:12",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = null
         ),
         Post(
             id = nextId++,
@@ -53,7 +60,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "20 сентября в 10:14",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = null
         ),
         Post(
             id = nextId++,
@@ -62,7 +70,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "19 сентября в 14:12",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = null
         ),
         Post(
             id = nextId++,
@@ -71,7 +80,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "19 сентября в 10:24",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = null
         ),
         Post(
             id = nextId++,
@@ -80,7 +90,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "18 сентября в 10:12",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = null
         ),
         Post(
             id = nextId++,
@@ -89,7 +100,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "21 мая в 18:36",
             likesCount = 20,
             likedByMe = false,
-            sharesCount = 13
+            sharesCount = 13,
+            videoUrl = "https://rutube.ru/video/300ce9d60e7f1ae1aad760444e4d3e85/?r=wd"
         )
     ).reversed()
 

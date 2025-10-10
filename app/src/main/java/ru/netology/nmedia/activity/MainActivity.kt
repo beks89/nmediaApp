@@ -1,7 +1,7 @@
 package ru.netology.nmedia.activity
 
-import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -15,7 +15,8 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.dto.Post
 import androidx.activity.result.launch
-import ru.netology.nmedia.util.AndroidUtils
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,8 +33,17 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel: PostViewModel by viewModels()
         val adapter = PostsAdapter(object : OnInteractionListener {
+
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
+            }
+
+            override fun openWebPage(url: String) {
+                val webpage: Uri = Uri.parse(url)
+                val intent = Intent(Intent.ACTION_VIEW, webpage)
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
             }
 
             override fun onLike(post: Post) {
@@ -56,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.list.adapter = adapter
+
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
         }

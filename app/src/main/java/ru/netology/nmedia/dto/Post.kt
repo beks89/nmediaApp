@@ -14,6 +14,7 @@ data class Post (
     val sharesCount: Int = 8,
     val viewsCount: Int = 619658,
     val likedByMe: Boolean = false,
+    val videoUrl: String?
 )
 
 fun countFormat(likesCount: Int): String {
