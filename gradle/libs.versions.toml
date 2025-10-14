@@ -18,6 +18,8 @@ constraintlayout = "2.2.1"
 materialVersion = "1.13.0"
 roomKtx = "2.8.2"
 generativeai = "0.9.0"
+navigationFragmentKtx = "2.9.5"
+navigationUiKtx = "2.9.5"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -37,8 +39,11 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 material-v161 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 
 [plugins]
+androidx-navigation = { id = "androidx.navigation.safeargs" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 

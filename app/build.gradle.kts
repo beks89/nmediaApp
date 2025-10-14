@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.ktx)
     implementation(libs.generativeai)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     implementation(libs.gson)
     androidTestImplementation(libs.androidx.junit)
