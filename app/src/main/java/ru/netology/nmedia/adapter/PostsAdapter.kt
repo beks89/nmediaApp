@@ -4,18 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.activity.result.launch
-import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.dto.countFormat
-import kotlin.text.isNullOrBlank
 
 
 interface OnInteractionListener {
@@ -24,6 +19,7 @@ interface OnInteractionListener {
     fun onRemove(post: Post) {}
     fun onShare(post: Post) {}
     fun openWebPage(url: String) {}
+    fun openPost(post: Post) {}
 }
 
 class PostsAdapter(
@@ -75,6 +71,10 @@ class PostViewHolder(
                         }
                     }
                 }.show()
+            }
+
+            content.setOnClickListener {
+                onInteractionListener.openPost(post)
             }
 
             video.setOnClickListener{
