@@ -86,11 +86,13 @@ class FCMService : FirebaseMessagingService() {
             .setContentTitle(
                 getString(
                     R.string.notification_new_post,
-                    post.author,
-                    post.published,
+                    post.author, post.published
                 )
             )
+            .setContentText(post.content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setStyle(NotificationCompat.BigTextStyle()
+                    .bigText(post.content))
             .build()
 
         notify(notification)
