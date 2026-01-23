@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.concurrent.TimeUnit
 
@@ -37,8 +38,8 @@ class PostRepositoryImpl: PostRepository {
 
     override fun likeById(id: Long) {
         val request: Request = Request.Builder()
-            .post("".toRequestBody())
-            .url("${BASE_URL}/api/slow/$id/likes")
+            .post(RequestBody.EMPTY)
+            .url("${BASE_URL}/api/slow/posts/$id/likes")
             .build()
 
         return client.newCall(request)
@@ -49,7 +50,7 @@ class PostRepositoryImpl: PostRepository {
     override fun unlikeById(id: Long) {
         val request: Request = Request.Builder()
             .delete()
-            .url("${BASE_URL}/api/slow/$id/likes")
+            .url("${BASE_URL}/api/slow/posts/$id/likes")
             .build()
 
         return client.newCall(request)

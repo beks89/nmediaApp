@@ -72,8 +72,17 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     fun edit(post: Post) {
         edited.value = post
     }
+
     fun likeById(id: Long) {
-        thread { repository.likeById(id) }
+        val isLiked = data.value?.posts?.find { it.id == id }?.likedByMe ?: return
+        thread {
+            if (!isLiked) {
+                repository.likeById(id)
+            } else {
+                repository.unlikeById(id)
+            }
+            loadPosts()
+        }
     }
     fun shareById(id: Long) {
         thread { repository.shareById(id) }
