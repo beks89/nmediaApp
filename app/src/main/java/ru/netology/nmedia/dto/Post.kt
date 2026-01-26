@@ -1,5 +1,6 @@
 package ru.netology.nmedia.dto
 
+import com.google.gson.annotations.SerializedName
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -10,6 +11,7 @@ data class Post (
     val author: String,
     val content: String,
     val published: String,
+    @SerializedName("likes")
     val likesCount: Int = 189,
     val sharesCount: Int = 8,
     val viewsCount: Int = 619658,
