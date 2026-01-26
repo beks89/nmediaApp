@@ -1,19 +1,17 @@
 package ru.netology.nmedia.fragment
 
+import android.R.attr.content
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.databinding.FragmentNewPostBinding
 import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.util.StringArg
 import ru.netology.nmedia.viewModel.PostViewModel
-import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
-import ru.netology.nmedia.R
 
 
 class NewPostFragment : Fragment() {
