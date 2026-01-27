@@ -11,6 +11,8 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.dto.countFormat
+import ru.netology.nmedia.util.loadAvatar
+
 
 
 interface OnInteractionListener {
@@ -43,6 +45,7 @@ class PostViewHolder(
     fun bind(post: Post) {
         binding.apply {
             author.text = post.author
+            avatar.loadAvatar("http://10.0.2.2:9999/avatars/${post.authorAvatar}")
             published.text = post.published
             content.text = post.content
             likes.isChecked = post.likedByMe
