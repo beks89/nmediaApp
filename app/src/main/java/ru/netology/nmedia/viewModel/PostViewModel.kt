@@ -17,6 +17,7 @@ import androidx.lifecycle.application
 private val empty = Post(
     id = 0,
     author = "",
+    authorAvatar = "",
     content = "",
     published = "",
     likesCount = 0,
