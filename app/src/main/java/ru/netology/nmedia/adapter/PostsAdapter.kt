@@ -12,6 +12,8 @@ import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.dto.countFormat
 import ru.netology.nmedia.util.loadAvatar
+//import ru.netology.nmedia.util.loadAttachmentImage
+import ru.netology.nmedia.BuildConfig
 
 
 
@@ -45,17 +47,25 @@ class PostViewHolder(
     fun bind(post: Post) {
         binding.apply {
             author.text = post.author
-            avatar.loadAvatar("http://10.0.2.2:9999/avatars/${post.authorAvatar}")
+            avatar.loadAvatar("${BuildConfig.BASE_URL}/avatars/${post.authorAvatar}")
             published.text = post.published
             content.text = post.content
             likes.isChecked = post.likedByMe
-            likes.text = countFormat(post.likesCount)
+            likes.text = "${post.likesCount}"
+            //likes.text = countFormat(post.likesCount)
             share.text = countFormat(post.sharesCount)
-            if (post.videoUrl != null) {
+            if (post.videoUrl!= null) {
                 group.visibility = View.VISIBLE
             } else {
                 group.visibility = View.GONE
             }
+
+//            if (post.attachment!= null) {
+//                group.visibility = View.VISIBLE
+//                video.loadAttachmentImage("${BuildConfig.BASE_URL}/images/${post.attachment.url}")
+//            } else {
+//                group.visibility = View.GONE
+//            }
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {

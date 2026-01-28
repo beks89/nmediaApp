@@ -3,6 +3,7 @@ package ru.netology.nmedia.util
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 
+
 fun ImageView.loadAvatar(url: String) {
     Glide.with(this)
         .load(url)
@@ -10,3 +11,10 @@ fun ImageView.loadAvatar(url: String) {
         .timeout(10_000)
         .into(this)
 }
+
+//fun ImageView.loadAttachmentImage(url: String) {
+//    Glide.with(this)
+//        .load(url)
+//        .timeout(10_000)
+//        .into(this)
+//}
