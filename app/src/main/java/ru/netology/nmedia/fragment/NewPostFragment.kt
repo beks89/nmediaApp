@@ -1,6 +1,5 @@
 package ru.netology.nmedia.fragment
 
-import android.R.attr.content
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

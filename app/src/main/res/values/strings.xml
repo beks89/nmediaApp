@@ -26,4 +26,8 @@
     <string name="error_loading" translatable="false">Something went wrong. Try again later</string>
     <string name="retry_loading" translatable="false">Retry</string>
     <string name="empty_posts" translatable="false">There are no posts.\nIf you create a new post, it will appear here</string>
+    <string name="like_error" translatable="false">Ошибка добавления лайка</string>
+    <string name="unlike_error" translatable="false">Ошибка удаления лайка</string>
+    <string name="remove_error" translatable="false">Ошибка удаления поста</string>
+    <string name="save_error" translatable="false">Ошибка добавления поста</string>
 </resources>
