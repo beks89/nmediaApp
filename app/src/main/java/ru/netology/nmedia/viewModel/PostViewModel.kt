@@ -1,7 +1,6 @@
 package ru.netology.nmedia.viewModel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
@@ -9,10 +8,9 @@ import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.model.FeedModel
 import ru.netology.nmedia.repository.*
 import ru.netology.nmedia.util.SingleLiveEvent
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.application
+import ru.netology.nmedia.model.FeedErrorMsg
+import ru.netology.nmedia.model.ErrorMsg
 
 private val empty = Post(
     id = 0,
@@ -39,22 +37,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     init {
         loadPosts()
     }
-
-//    fun loadPosts() {
-//        thread {
-//            // Начинаем загрузку
-//            _data.postValue(FeedModel(loading = true))
-//            try {
-//                // Данные успешно получены
-//                val posts = repository.getAll()
-//                FeedModel(posts = posts, empty = posts.isEmpty())
-//            } catch (e: IOException) {
-//                // Получена ошибка
-//                FeedModel(error = true)
-//            }.also(_data::postValue)
-//        }
-//    }
-
     fun loadPosts() {
         _data.postValue(FeedModel(loading = true))
         repository.getAllAsync(object : PostRepository.PostCallback<List<Post>> {
@@ -68,58 +50,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
-//    fun save() {
-//        edited.value?.let {
-//            thread {
-//                repository.save(it)
-//                _postCreated.postValue(Unit)
-//            }
-//        }
-//        edited.value = empty
-//    }
-
-//    fun save(content: Int) {
-//        edited.value?.let { editPost ->
-//            val text = content.trim()
-//
-//            if (text != editPost.content) {
-//                repository.saveAsync(
-//                    editPost.copy(content = text),
-//                    object : PostRepository.PostCallback<Post> {
-//                        override fun onSuccess(result: Post) {
-//                            if (editPost.id == 0L) {
-//                                val newListPosts = listOf(result) + _data.value?.posts.orEmpty()
-//                                _data.postValue(
-//                                    _data.value?.copy(
-//                                        posts = newListPosts
-//                                    )
-//                                )
-//                            } else {
-//                                val newListPosts = _data.value?.posts.orEmpty().map {
-//                                    if (it.id == result.id) {
-//                                        result
-//                                    } else it
-//                                }
-//                                _data.postValue(
-//                                    _data.value?.copy(
-//                                        posts = newListPosts
-//                                    )
-//                                )
-//                            }
-//
-//                            _postCreated.postValue(Unit)
-//                        }
-//
-//                        override fun onError(e: Exception) {
-//                            showErrorToast("Ошибка добавления поста")
-//                            _postCreated.postValue(Unit)
-//                        }
-//
-//                    })
-//            }
-//        }
-//    }
-
     fun save() {
         edited.value?.let {
             repository.saveAsync(it, object : PostRepository.PostCallback<Post> {
@@ -129,8 +59,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 override fun onError(e: Exception) {
-                    _data.value
-
+                    _data.value = _data.value?.copy(
+                        errorMsg = ErrorMsg(0, FeedErrorMsg.SAVE_ERROR))
                 }
             })
         }
@@ -149,18 +79,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = post
     }
 
-//    fun likeById(id: Long) {
-//        val isLiked = data.value?.posts?.find { it.id == id }?.likedByMe ?: return
-//        thread {
-//            if (!isLiked) {
-//                repository.likeById(id)
-//            } else {
-//                repository.unlikeById(id)
-//            }
-//            loadPosts()
-//        }
-//    }
-
     fun likeById(id: Long) {
         val isLiked = data.value?.posts?.find { it.id == id }?.likedByMe ?: return
         if (!isLiked) {
@@ -178,7 +96,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 override fun onError(e: Exception) {
-                    showErrorToast("Ошибка добавления лайка")
+                    _data.value = _data.value?.copy(
+                        errorMsg = ErrorMsg(id, FeedErrorMsg.LIKE_ERROR))
                 }
             })
         } else {
@@ -196,32 +115,15 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 override fun onError(e: Exception) {
-                    showErrorToast("Ощибка удаления лайка")
+                    _data.value = _data.value?.copy(
+                        errorMsg = ErrorMsg(id, FeedErrorMsg.UNLIKE_ERROR))
                 }
             })
         }
-        loadPosts()
     }
 
 
     fun shareById(id: Long) = repository.shareById(id)
-
-//    fun removeById(id: Long) {
-//        thread {
-//            // Оптимистичная модель
-//            val old = _data.value?.posts.orEmpty()
-//            _data.postValue(
-//                _data.value?.copy(posts = _data.value?.posts.orEmpty()
-//                    .filter { it.id != id }
-//                )
-//            )
-//            try {
-//                repository.removeById(id)
-//            } catch (e: IOException) {
-//                _data.postValue(_data.value?.copy(posts = old))
-//            }
-//        }
-//    }
 
     fun removeById(id: Long) {
         val old = _data.value?.posts.orEmpty()
@@ -240,15 +142,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onError(e: Exception) {
-                _data.postValue(_data.value?.copy(posts = old))
-                showErrorToast("Ошибка удаления поста")
+                _data.value = _data.value?.copy(posts = old,
+                    errorMsg = ErrorMsg(id, FeedErrorMsg.REMOVE_ERROR)
+                )
             }
         })
-    }
-
-    private fun showErrorToast(message: String) {
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(application, message, Toast.LENGTH_LONG).show()
-        }
     }
 }

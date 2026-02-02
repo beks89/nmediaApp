@@ -17,7 +17,14 @@ data class Post (
     val sharesCount: Int = 8,
     val viewsCount: Int = 619658,
     val likedByMe: Boolean = false,
-    val videoUrl: String?
+    val videoUrl: String?,
+    val attachment: Attachment? = null
+)
+
+data class Attachment(
+    val url: String,
+    val description: String?,
+    val type: AttachmentType
 )
 
 fun countFormat(likesCount: Int): String {

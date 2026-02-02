@@ -106,7 +106,6 @@ class FCMService : FirebaseMessagingService() {
         }
     }
 }
-
 enum class Action {
     LIKE, POST
 }

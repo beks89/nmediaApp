@@ -17,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.fragment.NewPostFragment.Companion.textArg
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.snackbar.Snackbar
+import ru.netology.nmedia.model.FeedErrorMsg
 
 class FeedFragment : Fragment() {
 
@@ -78,6 +80,41 @@ class FeedFragment : Fragment() {
             binding.progress.isVisible = state.loading
             binding.errorGroup.isVisible = state.error
             binding.emptyText.isVisible = state.empty
+            when (state.errorMsg?.feedErrorMsg) {
+                FeedErrorMsg.LIKE_ERROR -> {
+                    Snackbar.make(binding.root, R.string.like_error, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.retry_loading) {
+                            val postId = state.errorMsg.postIdError
+                            viewModel.likeById(postId)
+                        }
+                        .show()
+                }
+
+                FeedErrorMsg.UNLIKE_ERROR -> {
+                    Snackbar.make(binding.root, R.string.unlike_error, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.retry_loading) {
+                            val postId = state.errorMsg.postIdError
+                            viewModel.likeById(postId)
+                        }
+                        .show()
+                }
+
+                FeedErrorMsg.REMOVE_ERROR -> {
+                    Snackbar.make(binding.root, R.string.remove_error, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.retry_loading) {
+                            val postId = state.errorMsg.postIdError
+                            viewModel.removeById(postId)
+                        }
+                        .show()
+                }
+
+                FeedErrorMsg.SAVE_ERROR -> {
+                    Snackbar.make(binding.root, R.string.save_error, Snackbar.LENGTH_LONG)
+                        .setAction("Ok") { }
+                        .show()
+                }
+                null -> {}
+            }
         }
 
         binding.retryButton.setOnClickListener {
