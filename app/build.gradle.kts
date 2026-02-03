@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room)
     implementation(libs.generativeai)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -81,4 +82,5 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation (libs.retrofit)
+    implementation(libs.androidx.swiperefreshlayout)
 }
