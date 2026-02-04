@@ -33,3 +33,6 @@ data class PostEntity(
             dto.videoUrl)
     }
 }
+
+fun List<PostEntity>.toDto(): List<Post> = map(PostEntity::toDto)
+fun List<Post>.toEntity(): List<PostEntity> = map(PostEntity::fromDto)
