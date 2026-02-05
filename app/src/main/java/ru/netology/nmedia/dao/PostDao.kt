@@ -1,6 +1,5 @@
 package ru.netology.nmedia.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,8 +9,11 @@ import ru.netology.nmedia.entity.PostEntity
 
 @Dao
 interface PostDao {
-    @Query("SELECT * FROM PostEntity ORDER BY id DESC")
+    @Query("SELECT * FROM PostEntity WHERE isRead = 1 ORDER BY id DESC")
     fun getAll(): Flow<List<PostEntity>>
+
+    @Query("UPDATE PostEntity SET isRead = 1 WHERE isRead = 0")
+    suspend fun isRead()
 
     @Query("SELECT COUNT(*) FROM PostEntity")
     suspend fun count(): Int

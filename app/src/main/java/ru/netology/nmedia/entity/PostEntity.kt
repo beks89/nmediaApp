@@ -18,7 +18,7 @@ data class PostEntity(
     val sharesCount: Int = 8,
     val viewsCount: Int = 1,
     val videoUrl: String?,
-    val isRead: Boolean = false
+    val isRead: Boolean
 ) {
     fun toDto() = Post(id, author, authorAvatar, content, published, likesCount, sharesCount, viewsCount, likedByMe, videoUrl, isRead)
 

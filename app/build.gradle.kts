@@ -83,4 +83,5 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation (libs.retrofit)
     implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.kotlinx.coroutines.android)
 }

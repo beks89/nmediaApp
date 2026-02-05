@@ -65,6 +65,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateIsRead() = viewModelScope.launch {
+        repository.updateIsRead()
+    }
+
     fun refreshPosts() = viewModelScope.launch {
         try {
             _dataState.value = FeedModelState(refreshing = true)
