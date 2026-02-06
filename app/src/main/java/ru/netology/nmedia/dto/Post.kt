@@ -18,7 +18,8 @@ data class Post (
     val viewsCount: Int = 619658,
     val likedByMe: Boolean = false,
     val videoUrl: String?,
-    val attachment: Attachment? = null
+    val isRead: Boolean = true,
+    val attachment: Attachment? = null,
 )
 
 data class Attachment(

@@ -128,10 +128,22 @@ class FeedFragment : Fragment() {
             binding.emptyText.isVisible = state.empty
         }
 
+        viewModel.newerCount.observe(viewLifecycleOwner) { state ->
+            binding.newerButton.isVisible = state > 0
+            println(state)
+        }
 
+        binding.newerButton.setOnClickListener {
+            binding.newerButton.visibility = View.GONE
+            viewModel.updateIsRead()
+            binding.list.post {
+                binding.list.smoothScrollToPosition(0)
+            }
+        }
 
         binding.swiperefresh.setOnRefreshListener {
             viewModel.refreshPosts()
+            binding.newerButton.visibility = View.GONE
         }
 
         binding.fab.setOnClickListener {

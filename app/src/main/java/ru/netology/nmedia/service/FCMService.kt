@@ -92,7 +92,7 @@ class FCMService : FirebaseMessagingService() {
             .setContentText(post.content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setStyle(NotificationCompat.BigTextStyle()
-                    .bigText(post.content))
+                .bigText(post.content))
             .build()
 
         notify(notification)
