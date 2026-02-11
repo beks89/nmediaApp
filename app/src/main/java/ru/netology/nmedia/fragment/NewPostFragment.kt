@@ -35,11 +35,11 @@ class NewPostFragment : Fragment() {
         arguments?.textArg
             ?.let(binding.edit::setText)
 
-/*        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            viewModel.cancelEdit()
-            findNavController().navigateUp()
-        }
-        callback.isEnabled = true*/
+        /*        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                    viewModel.cancelEdit()
+                    findNavController().navigateUp()
+                }
+                callback.isEnabled = true*/
 
         binding.ok.setOnClickListener {
             viewModel.changeContent(binding.edit.text.toString())
@@ -47,7 +47,7 @@ class NewPostFragment : Fragment() {
             AndroidUtils.hideKeyboard(requireView())
         }
         viewModel.postCreated.observe(viewLifecycleOwner) {
-            viewModel.loadPosts()
+            //viewModel.loadPosts()
             findNavController().navigateUp()
         }
         return binding.root

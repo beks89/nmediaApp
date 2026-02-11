@@ -30,4 +30,5 @@
     <string name="unlike_error" translatable="false">Ошибка удаления лайка</string>
     <string name="remove_error" translatable="false">Ошибка удаления поста</string>
     <string name="save_error" translatable="false">Ошибка добавления поста</string>
+    <string name="newer_button" translatable="false">fresh posts</string>
 </resources>
