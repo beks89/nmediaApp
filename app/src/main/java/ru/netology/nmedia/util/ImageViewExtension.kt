@@ -12,9 +12,9 @@ fun ImageView.loadAvatar(url: String) {
         .into(this)
 }
 
-//fun ImageView.loadAttachmentImage(url: String) {
-//    Glide.with(this)
-//        .load(url)
-//        .timeout(10_000)
-//        .into(this)
-//}
+fun ImageView.loadAttachmentImage(url: String) {
+    Glide.with(this)
+        .load(url)
+        .timeout(10_000)
+        .into(this)
+}

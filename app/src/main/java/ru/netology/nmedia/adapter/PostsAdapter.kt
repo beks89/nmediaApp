@@ -14,7 +14,7 @@ import ru.netology.nmedia.dto.countFormat
 import ru.netology.nmedia.util.loadAvatar
 //import ru.netology.nmedia.util.loadAttachmentImage
 import ru.netology.nmedia.BuildConfig
-
+import ru.netology.nmedia.util.loadAttachmentImage
 
 
 interface OnInteractionListener {
@@ -60,12 +60,12 @@ class PostViewHolder(
                 group.visibility = View.GONE
             }
 
-//            if (post.attachment!= null) {
-//                group.visibility = View.VISIBLE
-//                video.loadAttachmentImage("${BuildConfig.BASE_URL}/images/${post.attachment.url}")
-//            } else {
-//                group.visibility = View.GONE
-//            }
+            if (post.attachment!= null) {
+                group.visibility = View.VISIBLE
+                video.loadAttachmentImage("${BuildConfig.BASE_URL}/images/${post.attachment.url}")
+            } else {
+                group.visibility = View.GONE
+            }
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
