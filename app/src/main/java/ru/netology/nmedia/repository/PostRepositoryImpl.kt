@@ -17,10 +17,8 @@ import ru.netology.nmedia.dto.Attachment
 import ru.netology.nmedia.dto.MediaUpload
 import ru.netology.nmedia.error.AppError
 import kotlin.collections.map
-import androidx.lifecycle.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import ru.netology.nmedia.api.*
 import ru.netology.nmedia.dto.*
 
 class PostRepositoryImpl(private val dao: PostDao) : PostRepository {

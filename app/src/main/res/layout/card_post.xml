@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier"
-        app:layout_constraintBottom_toTopOf="@id/video"
+        app:layout_constraintBottom_toTopOf="@id/attachment_file"
         tools:text="@sample/posts.json/data/content" />
 
     <androidx.constraintlayout.widget.Group
@@ -82,10 +82,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="video, videoPlay" />
+        app:constraint_referenced_ids="attachment_file, attachment_text" />
 
     <ImageButton
-        android:id="@+id/video"
+        android:id="@+id/attachment_file"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:contentDescription="@string/description_video"
@@ -113,6 +113,13 @@
         android:focusable="true"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/ic_play" />
+
+    <TextView
+        android:id="@+id/attachment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        tools:text="Checking smth" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierAfterContent"

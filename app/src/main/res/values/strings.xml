@@ -36,4 +36,5 @@
     <string name="description_photo" translatable="false">foto</string>
     <string name="description_select_photo" translatable="false">Select foto</string>
     <string name="description_take_photo" translatable="false">Take foto</string>
+    <string name="single_image" translatable="false">single_image</string>
 </resources>
