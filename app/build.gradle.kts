@@ -84,4 +84,6 @@ dependencies {
     implementation (libs.retrofit)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.imagepicker)
+    implementation(libs.ucrop)
 }

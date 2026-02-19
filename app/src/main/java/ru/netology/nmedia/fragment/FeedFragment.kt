@@ -44,12 +44,16 @@ class FeedFragment : Fragment() {
                     })
             }
 
-            override fun openWebPage(url: String) {
+            override fun openWebPage(url: String?) {
                 val webpage: Uri = Uri.parse(url)
                 val intent = Intent(Intent.ACTION_VIEW, webpage)
                 if (context?.let { intent.resolveActivity(it.packageManager) } != null) {
                     startActivity(intent)
                 }
+            }
+
+            override fun openImage(post: Post) {
+                findNavController().navigate(R.id.action_feedFragment_to_imageFragment, Bundle(). apply { textArg = post.attachment?.url })
             }
 
             override fun onLike(post: Post) {

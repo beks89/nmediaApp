@@ -18,6 +18,10 @@ import ru.netology.nmedia.repository.PostRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import android.net.Uri
+import ru.netology.nmedia.dto.MediaUpload
+import ru.netology.nmedia.model.PhotoModel
+import java.io.File
 
 private val empty = Post(
     id = 0,
@@ -30,6 +34,9 @@ private val empty = Post(
     likedByMe = false,
     videoUrl = null
 )
+
+private val noPhoto = PhotoModel()
+
 class PostViewModel(application: Application) : AndroidViewModel(application) {
     // упрощённый вариант
     private val repository: PostRepository = PostRepositoryImpl(AppDb.getInstance(context = application).postDao)
@@ -50,6 +57,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val _postCreated = SingleLiveEvent<Unit>()
     val postCreated: LiveData<Unit>
         get() = _postCreated
+
+    private val _photo = MutableLiveData(noPhoto)
+    val photo: LiveData<PhotoModel>
+        get() = _photo
 
     init {
         loadPosts()
@@ -84,7 +95,12 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             _postCreated.value = Unit
             viewModelScope.launch {
                 try {
-                    repository.saveAsync(it)
+                    when(_photo.value) {
+                        noPhoto -> repository.saveAsync(it)
+                        else -> _photo.value?.file?.let { file ->
+                            repository.saveWithAttachment(it, MediaUpload(file))
+                        }
+                    }
                     _dataState.value = FeedModelState()
                 } catch (e: Exception) {
                     _dataState.value = FeedModelState(error = true)
@@ -92,8 +108,12 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         edited.value = empty
+        _photo.value = noPhoto
     }
 
+    fun changePhoto(uri: Uri?, file: File?) {
+        _photo.value = PhotoModel(uri, file)
+    }
 
     fun changeContent(content: String) {
         val text = content.trim()

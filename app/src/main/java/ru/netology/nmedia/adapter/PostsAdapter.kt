@@ -14,7 +14,8 @@ import ru.netology.nmedia.dto.countFormat
 import ru.netology.nmedia.util.loadAvatar
 //import ru.netology.nmedia.util.loadAttachmentImage
 import ru.netology.nmedia.BuildConfig
-
+import ru.netology.nmedia.dto.AttachmentType
+import ru.netology.nmedia.util.loadAttachmentImage
 
 
 interface OnInteractionListener {
@@ -22,8 +23,9 @@ interface OnInteractionListener {
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
     fun onShare(post: Post) {}
-    fun openWebPage(url: String) {}
+    fun openWebPage(url: String?) {}
     fun openPost(post: Post) {}
+    fun openImage(post: Post) {}
 }
 
 class PostsAdapter(
@@ -54,20 +56,30 @@ class PostViewHolder(
             likes.text = "${post.likesCount}"
             //likes.text = countFormat(post.likesCount)
             share.text = countFormat(post.sharesCount)
-            if (post.videoUrl!= null) {
-                group.visibility = View.VISIBLE
-            } else {
+
+            if (post.attachment == null) {
                 group.visibility = View.GONE
+            } else {
+                group.visibility = View.VISIBLE
+                when (post.attachment.type) {
+                    AttachmentType.IMAGE -> {
+                        attachmentFile.loadAttachmentImage("http://10.0.2.2:9999/media/${post.attachment.url}")
+                        attachmentFile.setOnClickListener {
+                            onInteractionListener.openImage(post)
+                        }
+                    }
+
+                    AttachmentType.VIDEO -> {
+                        attachmentFile.setImageResource(R.drawable.outline_error_24)
+                        group.setOnClickListener {
+                            onInteractionListener.openWebPage(post.videoUrl)
+                        }
+                    }
             }
+        }
 
-//            if (post.attachment!= null) {
-//                group.visibility = View.VISIBLE
-//                video.loadAttachmentImage("${BuildConfig.BASE_URL}/images/${post.attachment.url}")
-//            } else {
-//                group.visibility = View.GONE
-//            }
 
-            menu.setOnClickListener {
+    menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_post)
                     setOnMenuItemClickListener { item ->
@@ -90,11 +102,11 @@ class PostViewHolder(
                 onInteractionListener.openPost(post)
             }
 
-            video.setOnClickListener{
-                if (post.videoUrl != null) {
-                    onInteractionListener.openWebPage(post.videoUrl)
-                }
-            }
+//            attachmentFile.setOnClickListener{
+//                if (post.videoUrl != null) {
+//                    onInteractionListener.openWebPage(post.videoUrl)
+//                }
+//            }
 
             videoPlay.setOnClickListener{
                 if (post.videoUrl != null) {

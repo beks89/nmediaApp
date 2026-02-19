@@ -31,4 +31,10 @@
     <string name="remove_error" translatable="false">Ошибка удаления поста</string>
     <string name="save_error" translatable="false">Ошибка добавления поста</string>
     <string name="newer_button" translatable="false">fresh posts</string>
+    <string name="menu_save" translatable="false">saveMenu</string>
+    <string name="remove" translatable="false">remove</string>
+    <string name="description_photo" translatable="false">foto</string>
+    <string name="description_select_photo" translatable="false">Select foto</string>
+    <string name="description_take_photo" translatable="false">Take foto</string>
+    <string name="single_image" translatable="false">single_image</string>
 </resources>
