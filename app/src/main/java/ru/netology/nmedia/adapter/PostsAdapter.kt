@@ -16,6 +16,7 @@ import ru.netology.nmedia.util.loadAvatar
 import ru.netology.nmedia.BuildConfig
 import ru.netology.nmedia.dto.AttachmentType
 import ru.netology.nmedia.util.loadAttachmentImage
+import androidx.core.view.isVisible
 
 
 interface OnInteractionListener {
@@ -57,6 +58,8 @@ class PostViewHolder(
             //likes.text = countFormat(post.likesCount)
             share.text = countFormat(post.sharesCount)
 
+            menu.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE
+
             if (post.attachment == null) {
                 group.visibility = View.GONE
             } else {
@@ -78,6 +81,7 @@ class PostViewHolder(
             }
         }
 
+            menu.isVisible = post.ownedByMe
 
     menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
