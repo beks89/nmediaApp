@@ -20,8 +20,10 @@ import androidx.core.view.MenuProvider
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.nmedia.R
 
+@AndroidEntryPoint
 class NewPostFragment : Fragment() {
 
     companion object {

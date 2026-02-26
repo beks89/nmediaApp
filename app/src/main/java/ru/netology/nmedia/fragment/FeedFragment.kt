@@ -18,8 +18,10 @@ import ru.netology.nmedia.fragment.NewPostFragment.Companion.textArg
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.nmedia.model.FeedErrorMsg
 
+@AndroidEntryPoint
 class FeedFragment : Fragment() {
 
     private val viewModel: PostViewModel by activityViewModels()

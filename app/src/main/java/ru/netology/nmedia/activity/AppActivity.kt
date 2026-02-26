@@ -29,8 +29,18 @@ import ru.netology.nmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.viewModel.AuthViewModel
 import androidx.core.view.MenuProvider
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var auth: AppAuth
+    @Inject
+    lateinit var firebaseMessaging: FirebaseMessaging
+    @Inject
+    lateinit var googleApiAvailability: GoogleApiAvailability
     private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,12 +114,12 @@ class AppActivity : AppCompatActivity() {
                     }
 
                     R.id.signup -> {
-                        AppAuth.getInstance().setAuth(5, "x-token")
+                        auth.setAuth(5, "x-token")
                         true
                     }
 
                     R.id.signout -> {
-                        AppAuth.getInstance().removeAuth()
+                        auth.removeAuth()
                         true
                     }
 
@@ -132,7 +142,7 @@ class AppActivity : AppCompatActivity() {
     }
 
     private fun checkGoogleApiAvailability() {
-        with(GoogleApiAvailability.getInstance()) {
+        with(googleApiAvailability) {
             val code = isGooglePlayServicesAvailable(this@AppActivity)
             if (code == ConnectionResult.SUCCESS) {
                 return@with
@@ -144,8 +154,18 @@ class AppActivity : AppCompatActivity() {
             Toast.makeText(this@AppActivity, R.string.google_play_unavailable, Toast.LENGTH_LONG).show()
         }
 
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            println(it)
+//        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+//            println(it)
+//        }
+
+        firebaseMessaging.token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                println("some stuff happened: ${task.exception}")
+                return@addOnCompleteListener
+            }
+
+            val token = task.result
+            println(token)
         }
     }
 }
