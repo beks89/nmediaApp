@@ -22,15 +22,19 @@ import ru.netology.nmedia.api.PostsApiService
 import ru.netology.nmedia.dto.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 
 @Singleton
 class PostRepositoryImpl @Inject constructor(
     private val postDao: PostDao,
     private val apiService: PostsApiService,
 ) : PostRepository {
-    override val data = postDao.getAll()
-        .map(List<PostEntity>::toDto)
-        .flowOn(Dispatchers.Default)
+    override val data: Flow<PagingData<Post>> = Pager(
+        config = PagingConfig(pageSize = 5, enablePlaceholders = false),
+        pagingSourceFactory = { PostPagingSource(apiService) },
+    ).flow
 
     override suspend fun getAllAsync() {
         try {

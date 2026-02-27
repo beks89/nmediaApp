@@ -16,8 +16,6 @@ import ru.netology.nmedia.viewModel.AuthViewModel
 
 @AndroidEntryPoint
 class AuthFragment : Fragment() {
-
-    //private val viewModel: AuthViewModel by viewModels(ownerProducer = ::requireParentFragment)
     private val viewModel: AuthViewModel by activityViewModels()
 
     override fun onCreateView(
