@@ -36,8 +36,10 @@ swiperefreshlayout = "1.2.0"
 imagepicker = "2.1"
 ucrop = "2.2.11"
 dagger = "2.57.2"
+pagingRuntimeKtx = "3.3.6"
 
 [libraries]
+androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }

@@ -30,11 +30,14 @@ import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.viewModel.AuthViewModel
 import androidx.core.view.MenuProvider
 import dagger.hilt.android.AndroidEntryPoint
+import ru.netology.nmedia.repository.PostRepository
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var repository: PostRepository
     @Inject
     lateinit var auth: AppAuth
     @Inject

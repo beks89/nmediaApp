@@ -89,4 +89,5 @@ dependencies {
     implementation(libs.ucrop)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.paging.runtime.ktx)
 }
