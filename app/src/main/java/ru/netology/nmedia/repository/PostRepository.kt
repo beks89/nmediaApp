@@ -9,12 +9,12 @@ import ru.netology.nmedia.dto.MediaUpload
 interface PostRepository {
     val data: Flow<PagingData<Post>>
     fun shareById(id: Long)
-    fun getNewerCount(id: Long): Flow<Int>
+//    fun getNewerCount(id: Long): Flow<Int>
     suspend fun likeByIdAsync(id: Long)
     suspend fun unlikeByIdAsync(id: Long)
     suspend fun saveAsync(post: Post)
     suspend fun removeByIdAsync(id: Long)
-    suspend fun getAllAsync()
+//    suspend fun getAllAsync()
     suspend fun updateIsRead()
     suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
     suspend fun upload(upload: MediaUpload): Media

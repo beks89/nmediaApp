@@ -12,11 +12,14 @@ import android.Manifest
 import android.app.Notification
 import android.content.pm.PackageManager
 import androidx.core.app.NotificationManagerCompat
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.dto.Post
 import kotlin.random.Random
 import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class FCMService : FirebaseMessagingService() {
 
     private val action = "action"
