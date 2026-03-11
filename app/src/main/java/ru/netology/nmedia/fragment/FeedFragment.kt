@@ -27,12 +27,15 @@ import androidx.paging.LoadState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.netology.nmedia.auth.AppAuth
+import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.viewModel.AuthViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
 
+    @Inject
+    lateinit var repository: PostRepository
     private val viewModel: PostViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
 
@@ -104,9 +107,9 @@ class FeedFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 adapter.loadStateFlow.collectLatest { state ->
                     binding.swiperefresh.isRefreshing =
-                        state.refresh is LoadState.Loading ||
-                                state.prepend is LoadState.Loading ||
-                                state.append is LoadState.Loading
+                        state.refresh is LoadState.Loading
+                                || state.append is LoadState.Loading
+//                                state.prepend is LoadState.Loading ||
                 }
             }
         }

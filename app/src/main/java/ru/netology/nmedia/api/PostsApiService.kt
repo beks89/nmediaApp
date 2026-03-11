@@ -13,6 +13,7 @@ import ru.netology.nmedia.dto.Media
 import okhttp3.Interceptor
 import ru.netology.nmedia.dto.PushToken
 
+
 private const val BASE_URL = "${BuildConfig.BASE_URL}/api/slow/"
 
 fun okhttp(vararg interceptors: Interceptor): OkHttpClient = OkHttpClient.Builder()
@@ -32,10 +33,10 @@ fun retrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
 interface PostsApiService {
     @POST("users/push-tokens")
     suspend fun save(@Body pushToken: PushToken): Response<Unit>
-    @GET("posts")
-    suspend fun getAll(): Response<List<Post>>
-    @GET("posts/{id}/newer")
-    suspend fun getNewer(@Path("id") id: Long): Response<List<Post>>
+//    @GET("posts")
+//    suspend fun getAll(): Response<List<Post>>
+//    @GET("posts/{id}/newer")
+//    suspend fun getNewer(@Path("id") id: Long): Response<List<Post>>
 
     @GET("posts/{id}/before")
     suspend fun getBefore(
