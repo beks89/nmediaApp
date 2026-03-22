@@ -3,19 +3,14 @@ package ru.netology.nmedia.repository
 import ru.netology.nmedia.dao.PostDao
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.entity.PostEntity
-import ru.netology.nmedia.entity.toDto
 import okio.IOException
-import ru.netology.nmedia.entity.toEntity
 import ru.netology.nmedia.error.ApiError
 import ru.netology.nmedia.error.NetworkError
 import ru.netology.nmedia.error.UnknownError
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import ru.netology.nmedia.dto.Attachment
 import ru.netology.nmedia.dto.MediaUpload
 import ru.netology.nmedia.error.AppError
-import kotlin.collections.map
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.nmedia.api.PostsApiService
@@ -40,7 +35,7 @@ class PostRepositoryImpl @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     override val data: Flow<PagingData<Post>> = Pager(
-        config = PagingConfig(pageSize = 25),
+        config = PagingConfig(pageSize = 5),
         remoteMediator = PostRemoteMediator(apiService, appDb, postDao, postRemoteKeyDao),
         pagingSourceFactory = postDao::pagingSource
     ).flow.map { pagingData ->

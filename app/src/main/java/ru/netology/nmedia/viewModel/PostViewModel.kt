@@ -24,6 +24,10 @@ import javax.inject.Inject
 import androidx.paging.cachedIn
 import androidx.paging.map
 import kotlinx.coroutines.flow.*
+import ru.netology.nmedia.dto.FeedItem
+import androidx.paging.*
+import ru.netology.nmedia.dto.Ad
+import kotlin.random.Random
 
 private val empty = Post(
     id = 0,
@@ -31,7 +35,7 @@ private val empty = Post(
     authorId = 0,
     authorAvatar = "",
     content = "",
-    published = "",
+    published = 0,
     likesCount = 0,
     sharesCount = 0,
     likedByMe = false,
@@ -46,17 +50,30 @@ class PostViewModel @Inject constructor(
     private val repository: PostRepository,
     auth: AppAuth,
 ) : ViewModel() {
-    private val cached = repository
+    private val cached: Flow<PagingData<FeedItem>> = repository
         .data
+        .map { pagingData ->
+            pagingData.insertSeparators(
+                generator = { before, after ->
+                    if (before?.id?.rem(5) != 0L) null else
+                        Ad(
+                            Random.nextLong(),
+                            "https://netology.ru",
+                            "figma.jpg"
+                        )
+                }
+            )
+        }
         .cachedIn(viewModelScope)
 
-    val data: Flow<PagingData<Post>> = auth.authStateFlow
+    val data: Flow<PagingData<FeedItem>> = auth.authStateFlow
         .flatMapLatest { (myId, _) ->
-            cached.map { pagingData ->
-                pagingData.map { post ->
-                    post.copy(ownedByMe = post.authorId == myId)
+            cached
+                .map { pagingData ->
+                    pagingData.map { item ->
+                        if (item !is Post) item else item.copy(ownedByMe = item.authorId == myId)
+                    }
                 }
-            }
         }
     private val _dataState = MutableLiveData<FeedModelState>()
     val dataState: LiveData<FeedModelState>
