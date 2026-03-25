@@ -44,4 +44,5 @@
     <string name="Password" translatable="false">password</string>
     <string name="Sign_in" translatable="false">Sign in</string>
     <string name="Auth_error" translatable="false">Auth error</string>
+    <string name="ad_description" translatable="false">Ad</string>
 </resources>

@@ -94,7 +94,7 @@ class FCMService : FirebaseMessagingService() {
             .setContentTitle(
                 getString(
                     R.string.notification_new_post,
-                    post.author, post.published
+                    post.author, post.published.toString()
                 )
             )
             .setContentText(post.content)

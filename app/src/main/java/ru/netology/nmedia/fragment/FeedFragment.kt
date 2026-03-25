@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.netology.nmedia.R
-import ru.netology.nmedia.adapter.OnInteractionListener
-import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.viewModel.PostViewModel
@@ -24,8 +22,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.netology.nmedia.adapter.FeedAdapter
+import ru.netology.nmedia.adapter.PagingLoadStateAdapter
 import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.viewModel.AuthViewModel
@@ -52,11 +54,13 @@ class FeedFragment : Fragment() {
             container,
             false
         )
-        val adapter = PostsAdapter(object : OnInteractionListener {
+
+        val adapter = FeedAdapter(object : FeedAdapter.OnInteractionListener {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                findNavController().navigate(R.id.action_feedFragment_to_newPostFragment,
+                findNavController().navigate(
+                    R.id.action_feedFragment_to_newPostFragment,
                     Bundle().apply {
                         textArg = post.content
                     })
@@ -71,7 +75,9 @@ class FeedFragment : Fragment() {
             }
 
             override fun openImage(post: Post) {
-                findNavController().navigate(R.id.action_feedFragment_to_imageFragment, Bundle(). apply { textArg = post.attachment?.url })
+                findNavController().navigate(
+                    R.id.action_feedFragment_to_imageFragment,
+                    Bundle().apply { textArg = post.attachment?.url })
             }
 
             override fun onLike(post: Post) {
@@ -95,7 +101,45 @@ class FeedFragment : Fragment() {
                 startActivity(shareIntent)
             }
         })
-        binding.list.adapter = adapter
+        //binding.list.adapter = adapter
+
+        binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = PagingLoadStateAdapter(object : PagingLoadStateAdapter.OnInteractionListener {
+                override fun onRetry() {
+                    adapter.retry()
+                }
+            }),
+            footer = PagingLoadStateAdapter(object : PagingLoadStateAdapter.OnInteractionListener {
+                override fun onRetry() {
+                    adapter.retry()
+                }
+            }),
+        )
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0, ItemTouchHelper.START or ItemTouchHelper.END
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSwiped(
+                viewHolder: RecyclerView.ViewHolder,
+                direction: Int
+            ) {
+                println("DO SOMETHING")
+            }
+        }).attachToRecyclerView(binding.list)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.data.collectLatest(adapter::submitData)
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -108,7 +152,7 @@ class FeedFragment : Fragment() {
                 adapter.loadStateFlow.collectLatest { state ->
                     binding.swiperefresh.isRefreshing =
                         state.refresh is LoadState.Loading
-                                || state.append is LoadState.Loading
+ //                               || state.append is LoadState.Loading
 //                                state.prepend is LoadState.Loading ||
                 }
             }
@@ -138,7 +182,11 @@ class FeedFragment : Fragment() {
                             val postId = state.errorMsg.postIdError
                             val post = adapter.snapshot().items.find { it.id == postId }
                                 ?: return@setAction
-                            viewModel.likeById(post)
+                            if (post is Post) {
+                                viewModel.likeById(post)
+                            } else {
+                                return@setAction
+                            }
                         }
                         .show()
                 }
@@ -149,7 +197,11 @@ class FeedFragment : Fragment() {
                             val postId = state.errorMsg.postIdError
                             val post = adapter.snapshot().items.find { it.id == postId }
                                 ?: return@setAction
-                            viewModel.likeById(post)
+                            if (post is Post) {
+                                viewModel.likeById(post)
+                            } else {
+                                return@setAction
+                            }
                         }
                         .show()
                 }
